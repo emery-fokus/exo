@@ -11,7 +11,7 @@ class ConversationAgent:
         self.conversation_history = [
                 {
                     "role": "system",
-                    "content": read_file(file_path="./context.txt")
+                    "content": self.read_file(file_path="./context.txt")
                 }
             ]
 
@@ -44,6 +44,7 @@ class ConversationAgent:
 
         self.update_conversation_history(role="assistant", content=response)
 
+        return response
 
 
 
@@ -72,8 +73,4 @@ class ConversationAgent:
 
 
 
-if __name__ == "__main__":
-    question = input("Pose ta question :\n")
-    response = ask_llm(question)
-    print("\n")
-    print(response)
+
