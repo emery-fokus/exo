@@ -51,6 +51,19 @@ class ConversationAgent:
         return response
 
 
+    def transcribe_audio(self, audio_file):
+        transcription = self.groq_client.audio.transcriptions.create(
+            file=audio_file,
+            model="whisper-large-v3-turbo",
+        )
+        return transcription.text
+
+
+    def ask_llm_with_audio(self, audio_file):
+        question = self.transcribe_audio(audio_file)
+        return self.ask_llm(question)
+
+
 
 
 

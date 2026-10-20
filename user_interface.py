@@ -24,14 +24,18 @@ class UserInterface:
 
 
 	def run(self):
-		text_interaction = st.chat_input(
+		user_submission = st.chat_input(
 			"Que veux tu moussaillon ?",
 			accept_file=False,
-			accept_audio=False
+			accept_audio=True
 			)
 
-		if text_interaction :
-			self.conversation_agent_object.ask_llm(text_interaction)
+		if user_submission :
+			if user_submission.audio is not None:
+				self.conversation_agent_object.ask_llm_with_audio(user_submission.audio)
+			else:
+				self.conversation_agent_object.ask_llm(user_submission.text)
+
 			self.show_discussion_history()
 
 
