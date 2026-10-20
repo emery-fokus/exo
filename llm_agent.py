@@ -22,6 +22,10 @@ class ConversationAgent:
             return file.read()
 
 
+    def get_conversation_history(self):
+        return self.conversation_history[1: ]
+
+
     def update_conversation_history(self, role, content):
         self.conversation_history.append(
             {
@@ -31,9 +35,9 @@ class ConversationAgent:
         )
 
 
-    def ask_llm(self, question):
+    def ask_llm(self, text_interaction):
 
-        self.update_conversation_history(role="user", content=question)
+        self.update_conversation_history(role="user", content=text_interaction)
 
         response = self.groq_client.chat.completions.create(
             messages=self.conversation_history,
