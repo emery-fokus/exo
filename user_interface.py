@@ -24,15 +24,22 @@ class UserInterface:
 
 
 	def run(self):
-		text_interaction = st.chat_input(
+		user_submission = st.chat_input(
 			"Que veux tu moussaillon ?",
-			accept_file=False,
+			accept_file=True,
 			accept_audio=False
 			)
 
-		if text_interaction :
-			self.conversation_agent_object.ask_llm(text_interaction)
+		if user_submission :
+			if user_submission.files:
+				self.conversation_agent_object.ask_llm_with_image(
+					user_submission.text, user_submission.files[0]
+				)
+			else:
+				self.conversation_agent_object.ask_llm(user_submission.text)
+
 			self.show_discussion_history()
+            
 
 
 
